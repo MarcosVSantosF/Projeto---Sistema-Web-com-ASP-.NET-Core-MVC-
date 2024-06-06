@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SalesWebMVC.Data;
 using SalesWebMVC.Models;
 
 namespace SalesWebMVC.Controllers
@@ -21,13 +22,15 @@ namespace SalesWebMVC.Controllers
         // GET: Departments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Department.ToListAsync());
+            return _context.Department != null ?
+             View(await _context.Department.ToListAsync()):
+             Problem("Entity set 'SalesWebMVCContext.Department'  is null.");
         }
 
         // GET: Departments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Department == null)
             {
                 return NotFound();
             }
@@ -150,7 +153,7 @@ namespace SalesWebMVC.Controllers
 
         private bool DepartmentExists(int id)
         {
-            return _context.Department.Any(e => e.Id == id);
+            return (_context.Department?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

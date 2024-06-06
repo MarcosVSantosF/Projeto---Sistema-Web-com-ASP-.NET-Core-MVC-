@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SalesWebMVC.Models.ViewModels;
 using System.Diagnostics;
+using SalesWebMVC.Data;
 
 namespace SalesWebMVC.Controllers
 {
@@ -11,6 +12,7 @@ namespace SalesWebMVC.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            
         }
 
         public IActionResult Index()
