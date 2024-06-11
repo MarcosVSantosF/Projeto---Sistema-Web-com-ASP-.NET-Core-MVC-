@@ -8,25 +8,20 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-/*builder.Services.AddDbContext<SalesWebMVCContext>(options =>
-
-    options.UseMySql(builder.Configuration.GetConnectionString("SalesWebMVCContext"),
-    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("SalesWebMVCContext")) ?? throw new InvalidOperationException("Connection string 'SalesWebMVCContext' not found."),
-    builder => builder.MigrationsAssembly("SalesWebMVC"))); */
-
-
-
-
 var connectionStringMysql = builder.Configuration.GetConnectionString("SalesWebMVCContext");
 builder.Services.AddDbContext<SalesWebMVCContext>(options => options.UseMySql(connectionStringMysql, ServerVersion.Parse("8.0.25-mysql"))); 
+
 builder.Services.AddScoped<SeedingService>();
+/*builder.Services.AddScoped<SellerService>();
+builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<SalesRecordService>();*/
 
 var app = builder.Build();
 
@@ -37,6 +32,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

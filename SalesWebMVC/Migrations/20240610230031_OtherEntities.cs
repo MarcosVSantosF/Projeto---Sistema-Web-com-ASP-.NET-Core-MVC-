@@ -31,7 +31,7 @@ namespace SalesWebMVC.Migrations
                 .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.CreateTable(
-                name: "Sellers",
+                name: "Seller",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -46,9 +46,9 @@ namespace SalesWebMVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sellers", x => x.ID);
+                    table.PrimaryKey("PK_Seller", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Sellers_Department_DepartmentId",
+                        name: "FK_Seller_Department_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Department",
                         principalColumn: "Id",
@@ -57,7 +57,7 @@ namespace SalesWebMVC.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "SalesRecords",
+                name: "SalesRecord",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -69,24 +69,24 @@ namespace SalesWebMVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SalesRecords", x => x.Id);
+                    table.PrimaryKey("PK_SalesRecord", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SalesRecords_Sellers_SellerID",
+                        name: "FK_SalesRecord_Seller_SellerID",
                         column: x => x.SellerID,
-                        principalTable: "Sellers",
+                        principalTable: "Seller",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesRecords_SellerID",
-                table: "SalesRecords",
+                name: "IX_SalesRecord_SellerID",
+                table: "SalesRecord",
                 column: "SellerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sellers_DepartmentId",
-                table: "Sellers",
+                name: "IX_Seller_DepartmentId",
+                table: "Seller",
                 column: "DepartmentId");
         }
 
@@ -94,10 +94,10 @@ namespace SalesWebMVC.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SalesRecords");
+                name: "SalesRecord");
 
             migrationBuilder.DropTable(
-                name: "Sellers");
+                name: "Seller");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
