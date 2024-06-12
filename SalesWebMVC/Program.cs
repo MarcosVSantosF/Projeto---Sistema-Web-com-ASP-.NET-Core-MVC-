@@ -5,6 +5,7 @@ using System.Globalization;
 using SalesWebMVC.Data;
 using Microsoft.AspNetCore.Localization;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using SalesWebMVC.Services;
 
 
 
@@ -19,8 +20,8 @@ var connectionStringMysql = builder.Configuration.GetConnectionString("SalesWebM
 builder.Services.AddDbContext<SalesWebMVCContext>(options => options.UseMySql(connectionStringMysql, ServerVersion.Parse("8.0.25-mysql"))); 
 
 builder.Services.AddScoped<SeedingService>();
-/*builder.Services.AddScoped<SellerService>();
-builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<SellerService>();
+/*builder.Services.AddScoped<DepartmentService>();
 builder.Services.AddScoped<SalesRecordService>();*/
 
 var app = builder.Build();
