@@ -44,3 +44,10 @@
     </div>
 </div>
 
+<!--Código para as validações Data Annotation feitas na model e declaradas aqui na view(asp-validation-summary - linha 14) no Javascript-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
