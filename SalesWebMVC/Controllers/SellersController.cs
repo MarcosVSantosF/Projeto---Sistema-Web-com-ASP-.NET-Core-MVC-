@@ -73,7 +73,7 @@ namespace SalesWebMVC.Controllers
                 await _sellerService.RemoveAsync(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch (DbConcurrencyException e)
+            catch (IntegrityException e)
             {
                 return RedirectToAction(nameof(Error), new { message = e.Message });
             }
